@@ -12,11 +12,11 @@ public class TelaInicial {
         driver.findElement(btnGuest).click();
     }
 
-    private void clicarBtnRegister(WebDriver driver){
+    public void clicarBtnRegister(WebDriver driver){
         driver.findElement(btnRegister).click();
     }
 
-    private void clicarBtnLogin(WebDriver driver){
+    public void clicarBtnLogin(WebDriver driver){
         driver.findElement(btnLogin).click();
     }
 }

@@ -6,19 +6,17 @@ import java.nio.file.Paths;
 import java.util.Properties;
 
 public class ConfiguracoesProperties {
-    private final Properties url = new Properties();
-    private final Properties drivers = new Properties();
+    private final Properties properties = new Properties();
 
     public ConfiguracoesProperties() throws IOException {
-        url.load(Files.newInputStream(Paths.get("DesafioAutomacaoWebComReports/src/test/resources/properties/urlPagina.properties")));
-        drivers.load(Files.newInputStream(Paths.get("DesafioAutomacaoWebComReports/src/test/resources/properties/urlPagina.properties")));
+        properties.load(Files.newInputStream(Paths.get("C:\\Users\\tivin\\Desktop\\Estudos\\DesafioAutomacaoWebComReports\\src\\test\\resources\\properties\\urlPagina.properties")));
     }
 
     public String urlSite(){
-        return url.getProperty("url");
+        return properties.getProperty("url");
     }
 
     public String drivers(){
-        return drivers.getProperty("driver");
+        return properties.getProperty("driver");
     }
 }

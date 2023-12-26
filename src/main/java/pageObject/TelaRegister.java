@@ -10,27 +10,27 @@ public class TelaRegister {
     private static final By inputPassword = By.xpath("//*[@id='registration-form']/fieldset/div[4]/input");
     private static final By btnRegister = By.xpath("//*[@id='registration-form']/fieldset/div[5]/button");
 
-    private void preencherInputFirstname(String firstname, WebDriver driver){
+    public void preencherInputFirstname(String firstname, WebDriver driver){
         driver.findElement(inputFirstname).clear();
         driver.findElement(inputFirstname).sendKeys(firstname);
     }
 
-    private void preencherInputLastname(String lastname, WebDriver driver){
+    public void preencherInputLastname(String lastname, WebDriver driver){
         driver.findElement(inputLastname).clear();
         driver.findElement(inputLastname).sendKeys(lastname);
     }
 
-    private void preencherInputUsername(String username, WebDriver driver){
+    public void preencherInputUsername(String username, WebDriver driver){
         driver.findElement(inputUsername).clear();
         driver.findElement(inputUsername).sendKeys(username);
     }
 
-    private void preencherInputPassword(String password, WebDriver driver){
+    public void preencherInputPassword(String password, WebDriver driver){
         driver.findElement(inputPassword).clear();
         driver.findElement(inputPassword).sendKeys(password);
     }
 
-    private void clicarBtnRegister(WebDriver driver){
+    public void clicarBtnRegister(WebDriver driver){
         driver.findElement(btnRegister).click();
     }
 }
