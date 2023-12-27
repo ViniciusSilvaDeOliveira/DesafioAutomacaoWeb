@@ -60,4 +60,9 @@ public class LeituraTxtCadastro {
 
         return textoPresenteNaTela;
     }
+
+    public void preencherLogin(){
+        telaLogin.preencherUsername(username.get(0), Hook.driver);
+        telaLogin.preencherPassword(password.get(0), Hook.driver);
+    }
 }

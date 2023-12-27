@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class StepsTelaRegister {
+public class Steps {
 
     private static List<Map<String, String>> list;
     private static List<Boolean> textoPresenteNaTela = new ArrayList<>();
@@ -24,7 +24,7 @@ public class StepsTelaRegister {
     TelaLogin telaLogin = new TelaLogin();
     LeituraTxtCadastro leituraTxtCadastro = new LeituraTxtCadastro();
 
-    //Contexto
+    //CT001
     @Dado("ter a massa de dados dos usuarios")
     public void terAMassaDeDadosDosUsuarios(DataTable dataTable) throws Exception {
         list = dataTable.asMaps(String.class, String.class);
@@ -42,5 +42,21 @@ public class StepsTelaRegister {
         for (int i = 0; i < linhas; i++){
             Assert.assertEquals(textoPresenteNaTela.get(i), true);
         }
+    }
+
+    //CT002
+    @E("clico em Guest")
+    public void clicoEmGuest() {
+        telaInicial.clicarBtnGuest(Hook.driver);
+    }
+
+    @E("seleciono a opção de login")
+    public void selecionoAOpçãoDeLogin() {
+        telaInicial.clicarBtnLogin(Hook.driver);
+    }
+
+    @Quando("preencho as informacoes")
+    public void preenchoAsInformacoes() {
+        leituraTxtCadastro.preencherLogin();
     }
 }
