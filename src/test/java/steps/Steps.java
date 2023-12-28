@@ -1,6 +1,7 @@
 package steps;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.Scenario;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
@@ -11,6 +12,7 @@ import pageObject.TelaInicial;
 import pageObject.TelaLogin;
 import utils.Excel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +35,7 @@ public class Steps {
     }
 
     @Quando("preencho as informacoes de cadastro e clico em register")
-    public void preenchoAsInformacoesDeCadastroEClicoEmRegister() throws InterruptedException {
+    public void preenchoAsInformacoesDeCadastroEClicoEmRegister() throws InterruptedException, IOException {
         textoPresenteNaTela = leituraTxtCadastro.preencherCadastro();
     }
 
@@ -58,5 +60,16 @@ public class Steps {
     @Quando("preencho as informacoes")
     public void preenchoAsInformacoes() {
         leituraTxtCadastro.preencherLogin();
+    }
+
+    @E("realizo o login")
+    public void realizoOLogin() {
+        telaLogin.clicarBtnLogin(Hook.driver);
+    }
+
+    @Entao("valido que o login foi realizado com sucesso")
+    public void validoQueOLoginFoiRealizadoComSucesso() throws InterruptedException {
+        Thread.sleep(2000);
+        Assert.assertEquals(telaLogin.nomeLogin(Hook.driver), leituraTxtCadastro.nomeLoginRealizado());
     }
 }

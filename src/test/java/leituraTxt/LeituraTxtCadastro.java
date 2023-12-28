@@ -1,11 +1,18 @@
 package leituraTxt;
 
+import io.cucumber.java.Scenario;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import pageObject.TelaInicial;
 import pageObject.TelaLogin;
 import pageObject.TelaRegister;
+import runner.Runner;
 import steps.Hook;
 import utils.ArquivoTxt;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +51,7 @@ public class LeituraTxtCadastro {
         }
     }
 
-    public List<Boolean> preencherCadastro() throws InterruptedException {
+    public List<Boolean> preencherCadastro() throws InterruptedException, IOException {
         for (int i = 0; i < password.size(); i++){
             telaInicial.clicarBtnGuest(Hook.driver);
             telaInicial.clicarBtnRegister(Hook.driver);
@@ -52,6 +59,7 @@ public class LeituraTxtCadastro {
             telaRegister.preencherInputLastname(lastname.get(i), Hook.driver);
             telaRegister.preencherInputUsername(username.get(i), Hook.driver);
             telaRegister.preencherInputPassword(password.get(i), Hook.driver);
+            Hook.tirarPrint("Usuário " + username.get(i) + " cadastrado");
             Thread.sleep(2000);
             telaRegister.clicarBtnRegister(Hook.driver);
             Thread.sleep(2000);
@@ -64,5 +72,9 @@ public class LeituraTxtCadastro {
     public void preencherLogin(){
         telaLogin.preencherUsername(username.get(0), Hook.driver);
         telaLogin.preencherPassword(password.get(0), Hook.driver);
+    }
+
+    public String nomeLoginRealizado(){
+        return firstname.get(0) + " " + lastname.get(0);
     }
 }

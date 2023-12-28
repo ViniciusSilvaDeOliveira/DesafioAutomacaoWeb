@@ -8,7 +8,13 @@ public class TelaLogin {
     private static final By textoLogin = By.xpath("//h3[text()='Please sign in']");
     private static final By inputUsername = By.xpath("//*[@id='login-form']/fieldset/div[1]/input");
     private static final By inputPassword = By.xpath("//*[@id='login-form']/fieldset/div[2]/input");
+    private static final By btnLogin = By.xpath("//*[@id='login-form']/fieldset/div[3]/button");
+    private static final By textoLoginNome = By.xpath("/html/body/div[1]/div[1]/div/div/div[2]/ul/li[5]/a/span[1]");
 
+    public String nomeLogin(WebDriver driver){
+        WebElement texto = driver.findElement(textoLoginNome);
+        return texto.getText();
+    }
     public boolean textoPresenteNaTela(WebDriver driver){
         WebElement texto = driver.findElement(textoLogin);
         if (texto.isDisplayed()){
@@ -26,5 +32,9 @@ public class TelaLogin {
     public void preencherPassword(String password, WebDriver driver){
         driver.findElement(inputPassword).clear();
         driver.findElement(inputPassword).sendKeys(password);
+    }
+
+    public void clicarBtnLogin(WebDriver driver){
+        driver.findElement(btnLogin).click();
     }
 }

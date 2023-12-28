@@ -38,9 +38,7 @@ public class Excel {
         for(int i =1; i <= rowCount; i++) {
             row = ws.getRow(i);
             if (row == null) {
-                wb.close();
-                fi.close();
-                return 0;
+                break;
             }
             ArquivoTxt.escreverTexto(Integer.toString(i), "FIRSTNAME", formatter.formatCellValue(row.getCell(massaDadosRegister.FIRSTNAME.ordinal())), arq);
             ArquivoTxt.escreverTexto(Integer.toString(i), "LASTNAME", formatter.formatCellValue(row.getCell(massaDadosRegister.LASTNAME.ordinal())), arq);

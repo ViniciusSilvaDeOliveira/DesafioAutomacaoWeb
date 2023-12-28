@@ -27,6 +27,7 @@ public class ArquivoTxt {
         gravarArq.printf(Geral.removerAcentos(valor.trim()) + "%n");
     }
     public static void fecharArquivo(PrintWriter gravarArq){
+//        gravarArq.flush();
         gravarArq.close();
     }
     public static String lerArquivo(String busca, String arquivoTxt){
