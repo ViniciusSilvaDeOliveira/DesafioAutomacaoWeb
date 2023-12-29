@@ -1,13 +1,13 @@
 package steps;
 
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.Scenario;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
 import leituraTxt.LeituraTxtCadastro;
 import org.junit.Assert;
+import pageObject.TelaBuscaDeCarro;
 import pageObject.TelaInicial;
 import pageObject.TelaLogin;
 import utils.Excel;
@@ -21,16 +21,19 @@ public class Steps {
 
     private static List<Map<String, String>> list;
     private static List<Boolean> textoPresenteNaTela = new ArrayList<>();
+    private static List<String> corPesquisada = new ArrayList<>();
+    private static List<String> anoPesquisado = new ArrayList<>();
     private static int linhas;
     TelaInicial telaInicial = new TelaInicial();
     TelaLogin telaLogin = new TelaLogin();
     LeituraTxtCadastro leituraTxtCadastro = new LeituraTxtCadastro();
+    TelaBuscaDeCarro telaBuscaDeCarro = new TelaBuscaDeCarro();
 
     //CT001
     @Dado("ter a massa de dados dos usuarios")
     public void terAMassaDeDadosDosUsuarios(DataTable dataTable) throws Exception {
         list = dataTable.asMaps(String.class, String.class);
-        linhas = Excel.getCellDadosEmailsInvalidos(list.get(0).get("planilha"), list.get(0).get("aba"));
+        linhas = Excel.getCellDadosCadastro(list.get(0).get("planilha"), list.get(0).get("aba"));
         LeituraTxtCadastro.leituraTxtRegister(linhas);
     }
 
@@ -71,5 +74,42 @@ public class Steps {
     public void validoQueOLoginFoiRealizadoComSucesso() throws InterruptedException {
         Thread.sleep(2000);
         Assert.assertEquals(telaLogin.nomeLogin(Hook.driver), leituraTxtCadastro.nomeLoginRealizado());
+    }
+
+    //CT003
+    @E("seleciono a opção Search")
+    public void selecionoAOpçãoSearch() {
+        telaBuscaDeCarro.clicarBtnSearch(Hook.driver);
+    }
+
+    @E("pesquiso por um carro")
+    public void pesquisoPorUmCarro(DataTable dataTable) throws Exception {
+        list = dataTable.asMaps(String.class, String.class);
+        linhas = Excel.getCellCorCarro(list.get(0).get("planilha"), list.get(0).get("aba"));
+        LeituraTxtCadastro.leituraTxtCor(linhas);
+        corPesquisada = leituraTxtCadastro.preencherCorCarro(Hook.driver);
+    }
+
+    @Entao("valido que a busca trouxe as cores corretas")
+    public void validoQueABuscaTrouxeAsCoresCorretas() {
+        for (int i = 0; i < linhas; i++){
+            Assert.assertEquals(corPesquisada.get(i), leituraTxtCadastro.corPesquisaExcel().get(i));
+        }
+    }
+
+    //CT004
+    @Quando("pesquiso por um carro pelo ano")
+    public void pesquisoPorUmCarroPeloAno(DataTable dataTable) throws Exception {
+        list = dataTable.asMaps(String.class, String.class);
+        linhas = Excel.getCellAnoCarro(list.get(0).get("planilha"), list.get(0).get("aba"));
+        LeituraTxtCadastro.leituraTxtAno(linhas);
+        anoPesquisado = leituraTxtCadastro.preencherAnoCarro(Hook.driver);
+    }
+
+    @Entao("valido que a busca me trouxe apenas de acordo com o ano do carro")
+    public void validoQueABuscaMeTrouxeApenasDeAcordoComOAnoDoCarro() {
+        for (int i = 0; i < linhas; i++){
+            Assert.assertEquals(anoPesquisado.get(i), leituraTxtCadastro.anoPesquisaExcel().get(i));
+        }
     }
 }

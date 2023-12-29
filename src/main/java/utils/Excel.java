@@ -25,7 +25,15 @@ public class Excel {
         PASSWORD
     }
 
-    public static int getCellDadosEmailsInvalidos(String xlFile, String xlSheet) throws Exception {
+    private enum massaDadosCor {
+        COR
+    }
+
+    private enum massaDadosAno {
+        ANO
+    }
+
+    public static int getCellDadosCadastro(String xlFile, String xlSheet) throws Exception {
         DataFormatter formatter = new DataFormatter();
 
         fi = new FileInputStream(caminho + "\\" + xlFile);
@@ -44,6 +52,54 @@ public class Excel {
             ArquivoTxt.escreverTexto(Integer.toString(i), "LASTNAME", formatter.formatCellValue(row.getCell(massaDadosRegister.LASTNAME.ordinal())), arq);
             ArquivoTxt.escreverTexto(Integer.toString(i), "USERNAME", formatter.formatCellValue(row.getCell(massaDadosRegister.USERNAME.ordinal())), arq);
             ArquivoTxt.escreverTexto(Integer.toString(i), "PASSWORD", formatter.formatCellValue(row.getCell(massaDadosRegister.PASSWORD.ordinal())), arq);
+
+        }
+        ArquivoTxt.fecharArquivo(arq);
+        wb.close();
+        fi.close();
+        return rowCount;
+    }
+
+    public static int getCellCorCarro(String xlFile, String xlSheet) throws Exception {
+        DataFormatter formatter = new DataFormatter();
+
+        fi = new FileInputStream(caminho + "\\" + xlFile);
+        wb = new XSSFWorkbook(fi);
+        ws = wb.getSheet(xlSheet);
+
+        int rowCount = ws.getLastRowNum();
+        PrintWriter arq = ArquivoTxt.abrirArquivo(caminho,"planilha-desafio");
+
+        for(int i =1; i <= rowCount; i++) {
+            row = ws.getRow(i);
+            if (row == null) {
+                break;
+            }
+            ArquivoTxt.escreverTexto(Integer.toString(i), "COR", formatter.formatCellValue(row.getCell(massaDadosCor.COR.ordinal())), arq);
+
+        }
+        ArquivoTxt.fecharArquivo(arq);
+        wb.close();
+        fi.close();
+        return rowCount;
+    }
+
+    public static int getCellAnoCarro(String xlFile, String xlSheet) throws Exception {
+        DataFormatter formatter = new DataFormatter();
+
+        fi = new FileInputStream(caminho + "\\" + xlFile);
+        wb = new XSSFWorkbook(fi);
+        ws = wb.getSheet(xlSheet);
+
+        int rowCount = ws.getLastRowNum();
+        PrintWriter arq = ArquivoTxt.abrirArquivo(caminho,"planilha-desafio");
+
+        for(int i =1; i <= rowCount; i++) {
+            row = ws.getRow(i);
+            if (row == null) {
+                break;
+            }
+            ArquivoTxt.escreverTexto(Integer.toString(i), "ANO", formatter.formatCellValue(row.getCell(massaDadosAno.ANO.ordinal())), arq);
 
         }
         ArquivoTxt.fecharArquivo(arq);

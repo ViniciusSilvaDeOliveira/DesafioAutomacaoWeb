@@ -13,7 +13,7 @@ import runner.Runner;
         features = "C:\\Users\\tivin\\Desktop\\Estudos\\DesafioAutomacaoWebComReports\\src\\test\\resources\\features\\registerLogin.feature",
         plugin = "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:",
         glue = "steps",
-        tags = "@CT002"
+        tags = "@CT004"
 )
 public class RunnerATestRegister {
     @BeforeClass
